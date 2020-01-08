@@ -16,6 +16,11 @@ steps:
       targetType: 'inline'
       script: 'gem install fastlane'
 
+  - task: Bash@3
+    displayName: 'Install iOS Certificate'
+    inputs:
+      targetType: 'inline'
+      script: 'fastlane match $ENV'
 # Xamarin.iOS
 # Build a Xamarin.iOS project.
 # Add steps that install certificates, test, sign, and distribute an app, save build artifacts, and more:
