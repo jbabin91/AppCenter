@@ -1,15 +1,25 @@
-- task: UseRubyVersion@0
-  inputs:
-    versionSpec: '>= 2.4'
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: 'gem install fastlane'
+trigger:
+  - master
 
-# # Xamarin.iOS
-# # Build a Xamarin.iOS project.
-# # Add steps that install certificates, test, sign, and distribute an app, save build artifacts, and more:
-# # https://docs.microsoft.com/azure/devops/pipelines/languages/xamarin
+pool:
+  vmImage: 'macos-latest'
+
+steps:
+  - task: UseRubyVersion@0
+    displayName: 'Install Ruby'
+    inputs:
+      versionSpec: '>= 2.4'
+
+  - task: Bash@3
+    displayName: 'Install Fastlane'
+    inputs:
+      targetType: 'inline'
+      script: 'gem install fastlane'
+
+# Xamarin.iOS
+# Build a Xamarin.iOS project.
+# Add steps that install certificates, test, sign, and distribute an app, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/xamarin
 
 # trigger:
 # - master
