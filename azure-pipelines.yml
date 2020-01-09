@@ -5,6 +5,7 @@ pool:
   vmImage: 'macos-latest'
 
 steps:
+# Setup - Certificates
   - task: UseRubyVersion@0
     displayName: 'Install Ruby'
     inputs:
@@ -20,17 +21,29 @@ steps:
     displayName: 'Install iOS Certificate'
     inputs:
       targetType: 'inline'
-      script: 'fastlane match $ENV'
+      script: 'fastlane certificates'
+
+# Cleanup
+  - task: DeleteFiles@1
+    displayName: 'Delete any existing build outputs'
+    inputs:
+      SourceFolder: '$(build.sourcesDirectory)'
+      Contents: |
+        **/obj/**
+        **/bin/**
+
+# NuGet Install and Restore packages
+  - task: NuGetToolInstaller@1
+    displayName: 'Install NuGet'
+
+  - task: NuGetCommand@2
+    inputs:
+     restoreSolution: '**/*.sln'
+
 # Xamarin.iOS
 # Build a Xamarin.iOS project.
 # Add steps that install certificates, test, sign, and distribute an app, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/xamarin
-
-# trigger:
-# - master
-
-# pool:
-#   vmImage: 'macos-latest'
 
 # steps:
 # # To manually select a Xamarin SDK version on the Microsoft-hosted macOS agent,
@@ -40,12 +53,6 @@ steps:
 # - script: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 5_12_0
 #   displayName: 'Select the Xamarin SDK version'
 #   enabled: false
-
-# - task: NuGetToolInstaller@1
-
-# - task: NuGetCommand@2
-#   inputs:
-#     restoreSolution: '**/*.sln'
 
 # - task: XamariniOS@2
 #   inputs:
