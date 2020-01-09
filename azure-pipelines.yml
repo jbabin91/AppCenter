@@ -5,6 +5,13 @@ pool:
   vmImage: 'macos-latest'
 
 steps:
+
+  - task: Bash@3
+    displayName: 'Install latest xcode command line tools'
+    inputs:
+      targetType: 'inline'
+      script: 'xcode-select --install'
+
 # Setup - Certificates
   - task: UseRubyVersion@0
     displayName: 'Install Ruby'
