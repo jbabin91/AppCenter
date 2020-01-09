@@ -837,3 +837,11 @@ healthchecksdb
 MigrationBackup/
 
 # End of https://www.gitignore.io/api/visualstudio
+
+# Created by https://www.gitignore.io/api/dotenv
+# Edit at https://www.gitignore.io/?templates=dotenv
+
+### dotenv ###
+.env
+
+# End of https://www.gitignore.io/api/dotenv
