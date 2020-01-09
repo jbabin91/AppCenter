@@ -17,7 +17,13 @@ default_platform(:ios)
 
 platform :ios do
   desc "Description of what the lane does"
-  lane :certificates do
-    match(git_basic_authorization: ENV['MATCH_GIT_BASIC_AUTHORIZATION'])
+  lane :adhoc do
+    match(
+      git_url: 'https://github.com/jbabin91/AppCenter-Certificates.git',
+      type: 'adhoc',
+      git_user_email: 'jbabin91@gmail.com',
+      force_for_new_devices: true,
+      readonly: is_ci
+    )
   end
 end
